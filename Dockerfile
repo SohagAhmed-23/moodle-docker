@@ -1,12 +1,12 @@
 # Use the official PHP 8.3 image as a base
 FROM php:8.3-apache
 
-# Install necessary extensions, Apache mod_rewrite, Composer, PostgreSQL extension, and OPcache
+# Install necessary extensions, Apache mod_rewrite, Composer, MySQL extension, and OPcache
 RUN apt-get update && \
     apt-get install -y --no-install-recommends unzip git curl libzip-dev libjpeg-dev libpng-dev \
-    libfreetype6-dev libicu-dev libxml2-dev libpq-dev && \
+    libfreetype6-dev libicu-dev libxml2-dev libmariadb-dev && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install mysqli zip gd intl soap exif pgsql pdo_pgsql opcache && \
+    docker-php-ext-install mysqli zip gd intl soap exif pdo_mysql opcache && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     git clone git://git.moodle.org/moodle.git && cd moodle && \

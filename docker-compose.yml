@@ -1,8 +1,10 @@
+version: '3.8'
+
 services:
   moodleapp:
     build:
       context: .
-      dockerfile: moodle
+      dockerfile: Dockerfile
     image: moodle-web:1.0
     container_name: moodle-web
     ports:
@@ -10,27 +12,31 @@ services:
     volumes:
       - moodledata:/var/www/moodledata
     depends_on:
-      - postgres
+      - mysql
   
-  postgres:
-    image: postgres:17-alpine
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
     environment:
-      - POSTGRES_DB=moodle
-      - POSTGRES_USER=moodle_user
-      - POSTGRES_PASSWORD=moodle_password
+      - MYSQL_DATABASE=moodle
+      - MYSQL_USER=moodle_user
+      - MYSQL_PASSWORD=moodle_password
+      - MYSQL_ROOT_PASSWORD=root_password
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - mysqldata:/var/lib/mysql
 
-  pgadmin:
-    image: dpage/pgadmin4
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
     ports:
       - "81:80"
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
-      - PGADMIN_DEFAULT_PASSWORD=admin
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=root_password
     depends_on:
-      - postgres
+      - mysql
 
 volumes:
-  pgdata:
+  mysqldata:
   moodledata:

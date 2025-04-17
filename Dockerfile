@@ -11,7 +11,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* 
 
 # Clone Moodle (only required branch, shallow clone)
-RUN git clone --depth 1 --branch MOODLE_405_STABLE git://git.moodle.org/moodle.git /var/www/html
+RUN git clone --depth 1 --branch MOODLE_500_STABLE git://git.moodle.org/moodle.git /var/www/html
 
 # Set PHP settings for Moodle
 RUN echo "max_input_vars=5000" >> /usr/local/etc/php/conf.d/docker-php-moodle.ini && \

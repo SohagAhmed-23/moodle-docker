@@ -35,3 +35,7 @@ WORKDIR /var/www/html
 
 # Expose port 80
 EXPOSE 80
+
+
+# copy on local machine
+# docker cp <container_id> :/var/www/html/. ~/moodle_dir_name
